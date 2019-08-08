@@ -28,11 +28,11 @@ public class Contacts {
     private static Scanner sc = new Scanner(System.in);
 
     private static String menu =
-            "   | |    1. View Contacts             | |\n" +
-            "   | |    2. Add New Contact           | |\n" +
-            "   | |    3. Search Contact            | |\n" +
-            "   | |    4. Delete Contact            | |\n" +
-            "   | |    5. Exit                      | |\n";
+            "   🐧    1. View Contacts       🐧 \n" +
+            "   🐧    2. Add New Contact     🐧 \n" +
+            "   🐧     3. Search Contact     🐧 \n" +
+            "   🐧    4. Delete Contact      🐧 \n" +
+            "   🐧     5. Exit               🐧 \n";
 
     private static void add() throws InterruptedException {
         System.out.println("Please enter the name that you would like add.");
