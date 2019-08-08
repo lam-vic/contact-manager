@@ -26,7 +26,7 @@ public class Contacts {
     private static Path file = Paths.get(directory, fileName);
 
     private static Scanner sc = new Scanner(System.in);
-
+    private static String leftAlignFormat = "   | | %-14s | %-14s | | %n";
     private static String menu =
             "   🐧    1. View Contacts       🐧 \n" +
             "   🐧    2. Add New Contact     🐧 \n" +
@@ -95,13 +95,69 @@ private static void read() {
         System.out.println(menu);
         for (String line : contacts) {
             String name = line.split("\\|")[0];
-            String number = line.split("\\|")[1];
-            System.out.format(name, number);
+            String number = line.split("\\|" )[1];
+            System.out.format(leftAlignFormat, name, number);
         }
     } catch (IOException e) {
         e.printStackTrace();
     }
 }
+
+    //Method that scans a user input and outputs contacts that contain the input
+    private static void search() {
+        System.out.println("What contact would you like displayed?");
+        String searchedName = sc.nextLine();
+        boolean foundContact = false;
+
+        try {
+            List<String> contacts = Files.readAllLines(file);
+            for (String line : contacts) {
+                String name = line.split("\\|")[0];
+                String number = line.split("\\|")[1];
+                if (name.trim().toLowerCase().contains(searchedName.toLowerCase())) {
+                    System.out.format(leftAlignFormat, name, number);
+                    foundContact = true;
+                } else if (number.trim().toLowerCase().contains(searchedName.toLowerCase())) {
+                    System.out.format(leftAlignFormat, name, number);
+                    foundContact = true;
+                }
+            }
+            if (!foundContact) {
+                String name = "no match";
+                String number = "no match";
+                System.out.format(leftAlignFormat, "| " + name, number);
+                return;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //Method that deletes contacts, also allows the user to update existing contacts
+    private static void delete() {
+        System.out.println("What contact would you like to delete?");
+        String contactToDelete = sc.nextLine();
+        List<String> updatedList = new ArrayList<>();
+        try {
+            List<String> contacts = Files.readAllLines(file);
+            for (String line : contacts) {
+                String name = line.split("\\|")[0];
+                if ((name.trim().equalsIgnoreCase(contactToDelete)) || (name.trim().equalsIgnoreCase(contactToDelete +
+                        " *"))) {
+                    continue;
+                }
+                updatedList.add(line);
+            }
+            Files.write(file, updatedList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private static void runApp() throws InterruptedException {
         System.out.println("Input here: ");
         int userOption = Integer.valueOf(sc.nextLine());
@@ -112,10 +168,11 @@ private static void read() {
             add();
             runApp();
         } else if (userOption == 3) {
-           System.out.println("ADIOS!");
-        } else {
-            System.out.println("Error: Invalid input.");
-            runApp();
+            search();
+        } else if (userOption == 4){
+            delete();
+        } else if (userOption == 5){
+            System.out.println("ADIOS");
         }
     }
 }
