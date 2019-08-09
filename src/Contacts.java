@@ -47,7 +47,7 @@ public class Contacts {
     private static String leftAlignFormat = "   | | %-14s | %-14s | | %n";
     private static String menu =
             "   🐧    1. View Contacts      🐧 \n" +
-            "   🐧    2. Add Contact    🐧 \n" +
+            "   🐧    2. Add Contact        🐧 \n" +
             "   🐧    3. Search Contact     🐧 \n" +
             "   🐧    4. Delete Contact     🐧 \n" +
             "   🐧    5. Exit               🐧 \n";
