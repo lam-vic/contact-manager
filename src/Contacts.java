@@ -154,7 +154,7 @@ private static void read() {
     }
 
 
-    //Method that deletes contacts, also allows the user to update existing contacts
+    //Method that deletes and update existing contacts
     private static void delete() {
         System.out.println("Who do you want to delete?");
         String contactToDelete = sc.nextLine();
