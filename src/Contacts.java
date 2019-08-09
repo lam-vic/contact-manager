@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
 import static java.lang.String.format;
 
 public class Contacts {
@@ -25,7 +23,7 @@ public class Contacts {
         Graphics2D graphics = (Graphics2D) g;
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                 RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        graphics.drawString("Holagit!", 6, 24);
+        graphics.drawString("Hola!", 6, 24);
         ImageIO.write(image, "png", new File("text.png"));
 
         for (int y = 0; y < 32; y++) {
@@ -46,24 +44,24 @@ public class Contacts {
     private static Scanner sc = new Scanner(System.in);
     private static String leftAlignFormat = "   | | %-14s | %-14s | | %n";
     private static String menu =
-            "   🐧    1. View Contacts       🐧 \n" +
-            "   🐧    2. Add New Contact     🐧 \n" +
-            "   🐧     3. Search Contact     🐧 \n" +
-            "   🐧    4. Delete Contact      🐧 \n" +
-            "   🐧     5. Exit               🐧 \n";
+            "   🐧    1. View Contacts      🐧 \n" +
+            "   🐧    2. Add Contact        🐧 \n" +
+            "   🐧    3. Search Contact     🐧 \n" +
+            "   🐧    4. Delete Contact     🐧 \n" +
+            "   🐧    5. Exit               🐧 \n";
 
     private static void add() throws InterruptedException {
-        System.out.println("Please enter the name that you would like add.");
+        System.out.println("Enter name.");
         String newName = sc.nextLine();
         if (newName.length() > 13) {
-            System.out.println("Name too large consider abbreviation");
+            System.out.println("Name is too long");
             return;
         }
-        System.out.println("Please enter their phone number number");
+        System.out.println("Enter the number");
         String newNumber = sc.nextLine();
         String formattedNumber = format(newNumber);
         if (formattedNumber.length() > 14) {
-            System.out.println("Invalid phone number");
+            System.out.println("Not a  phone number");
             return;
         }
         String newContact = newName + "|" + formattedNumber;
@@ -74,7 +72,7 @@ public class Contacts {
                 String name = line.split("\\|")[0];
                 String number = line.split("\\|")[1];
                 if (name.trim().equalsIgnoreCase(newName) || name.trim().equalsIgnoreCase(newName + " *")) {
-                    System.out.printf("There's already a contact named %s. Do you want to overwrite it? (Yes/No)\n", newName);
+                    System.out.printf("There's already someone with this name %s. Do you want to overwrite it? (Yes/No)\n", newName);
                     if (sc.nextLine().equals("yes")) {
                         updatedList.add(newContact);
                         continue;
@@ -82,7 +80,7 @@ public class Contacts {
                         add();
                     }
                 } else if (number.trim().equalsIgnoreCase(formattedNumber.trim())) {
-                    System.out.printf("There's already a contact with the number %s. Do you want to overwrite it? " +
+                    System.out.printf("There's already this number %s. Do you want to overwrite it? " +
                             "(Yes/No)\n", formattedNumber);
                     if (sc.nextLine().equals("yes")) {
                         updatedList.add(newContact);
@@ -121,9 +119,9 @@ private static void read() {
     }
 }
 
-    //Method that scans a user input and outputs contacts that contain the input
+    //Method to look up
     private static void search() {
-        System.out.println("What contact would you like displayed?");
+        System.out.println("Who do you want to look up?");
         String searchedName = sc.nextLine();
         boolean foundContact = false;
 
@@ -141,8 +139,8 @@ private static void read() {
                 }
             }
             if (!foundContact) {
-                String name = "no match";
-                String number = "no match";
+                String name = "fail match";
+                String number = "fail match";
                 System.out.format(leftAlignFormat, "| " + name, number);
                 return;
             }
@@ -154,9 +152,9 @@ private static void read() {
     }
 
 
-    //Method that deletes contacts, also allows the user to update existing contacts
+    //Method that deletes and update existing contacts
     private static void delete() {
-        System.out.println("What contact would you like to delete?");
+        System.out.println("Who do you want to delete?");
         String contactToDelete = sc.nextLine();
         List<String> updatedList = new ArrayList<>();
         try {
@@ -177,7 +175,7 @@ private static void read() {
 
 
     private static void runApp() throws InterruptedException {
-        System.out.println("Input here: ");
+        System.out.println("Command here: ");
         int userOption = Integer.valueOf(sc.nextLine());
         if (userOption == 1) {
             read();
@@ -187,8 +185,10 @@ private static void read() {
             runApp();
         } else if (userOption == 3) {
             search();
+            runApp();
         } else if (userOption == 4){
             delete();
+            runApp();
         } else if (userOption == 5){
             System.out.println("ADIOS");
         }
