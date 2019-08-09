@@ -187,8 +187,10 @@ private static void read() {
             runApp();
         } else if (userOption == 3) {
             search();
+            runApp();
         } else if (userOption == 4){
             delete();
+            runApp();
         } else if (userOption == 5){
             System.out.println("ADIOS");
         }
