@@ -121,7 +121,7 @@ private static void read() {
     }
 }
 
-    //Method that scans a user input and outputs contacts that contain the input
+    //Method to look up
     private static void search() {
         System.out.println("Who do you want to look up?");
         String searchedName = sc.nextLine();
@@ -141,8 +141,8 @@ private static void read() {
                 }
             }
             if (!foundContact) {
-                String name = "no match";
-                String number = "no match";
+                String name = "fail match";
+                String number = "fail match";
                 System.out.format(leftAlignFormat, "| " + name, number);
                 return;
             }
